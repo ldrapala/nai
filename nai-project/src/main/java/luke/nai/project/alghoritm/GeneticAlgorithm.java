@@ -1,4 +1,4 @@
-package luke.nai.project.genetic;
+package luke.nai.project.alghoritm;
 
 /**
  *
