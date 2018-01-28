@@ -1,4 +1,4 @@
-package luke.nai.project;
+package luke.nai.project.hillclimbing;
 
 import java.util.function.Supplier;
 
@@ -6,11 +6,11 @@ import java.util.function.Supplier;
  *
  * @author luke
  */
-public class Condition implements Supplier<Boolean> {
+public class TerminationCondition implements Supplier<Boolean> {
     
       private int timeToGo;
 
-        public Condition(int timeToGo) {
+        public TerminationCondition(int timeToGo) {
             this.timeToGo = timeToGo;
         }
 

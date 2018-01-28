@@ -1,4 +1,4 @@
-package luke.nai.project.alghoritm;
+package luke.nai.project.hillclimbing;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
