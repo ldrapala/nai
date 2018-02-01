@@ -1,6 +1,5 @@
 package luke.nai.project.astar;
 
-import java.awt.Color;
 import java.util.Objects;
 
 /**

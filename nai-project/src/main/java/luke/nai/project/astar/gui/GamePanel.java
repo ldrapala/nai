@@ -34,47 +34,47 @@ public class GamePanel extends javax.swing.JPanel {
         int buttonHeight = getParent().getHeight() / buttons.length + 1;
         int buttonWidht = getParent().getWidth() / buttons.length + 1;
         int counter = 0;
-        for (int i = 0; i < buttons.length; i++) {
-            for (int j = 0; j < buttons[i].length; j++) {
+        for (int y = 0; y < buttons.length; y++) {
+            for (int x = 0; x < buttons[y].length; x++) {
                 gbc.fill = GridBagConstraints.BOTH;
-                gbc.gridx = j;
-                gbc.gridy = i;
+                gbc.gridx = x;
+                gbc.gridy = y;
                 gbc.weightx = 1;
                 gbc.weighty = 1;
                 JButton jButton = new JButton();
-                buttons[i][j] = jButton;
+                buttons[y][x] = jButton;
                 jButton.setMargin(new Insets(1, 1, 1, 1));
-                jButton.setBackground(new Color(238, 238, 238));
+                jButton.setBackground(ColorSupplier.getDefaultColor());
                 jButton.setText(String.valueOf(++counter));
-                final int x = i;
-                final int y = j;
+                final int x1 = y;
+                final int y1 = x;
                 jButton.addActionListener((ActionEvent e) -> {
                     switch (context) {
                         case CHOOSE_START:
-                            if (jButton.getBackground().equals(Color.GREEN)) {
-                                jButton.setBackground(new Color(238, 238, 238));
+                            if (jButton.getBackground().equals(ColorSupplier.getStartColor())) {
+                                jButton.setBackground(ColorSupplier.getDefaultColor());
                                 gameModel.clearStart();
                             } else {
-                                jButton.setBackground(Color.GREEN);
-                                gameModel.setStart(x, y);
+                                jButton.setBackground(ColorSupplier.getStartColor());
+                                gameModel.setStart(x1, y1);
                             }
                             break;
                         case CHOOSE_END:
-                            if (jButton.getBackground().equals(Color.ORANGE)) {
-                                jButton.setBackground(new Color(238, 238, 238));
+                            if (jButton.getBackground().equals(ColorSupplier.getEndColor())) {
+                                jButton.setBackground(ColorSupplier.getDefaultColor());
                                 gameModel.clearEnd();
                             } else {
-                                jButton.setBackground(Color.ORANGE);
-                                gameModel.setEnd(x, y);
+                                jButton.setBackground(ColorSupplier.getEndColor());
+                                gameModel.setEnd(x1, y1);
                             }
                             break;
                         case CHOOSE_WALL:
-                            if (jButton.getBackground().equals(Color.RED)) {
-                                jButton.setBackground(new Color(238, 238, 238));
-                                gameModel.clearWall(x, y);
+                            if (jButton.getBackground().equals(ColorSupplier.getWallColor())) {
+                                jButton.setBackground(ColorSupplier.getDefaultColor());
+                                gameModel.clearWall(x1, y1);
                             } else {
-                                jButton.setBackground(Color.RED);
-                                gameModel.setWall(x, y);
+                                jButton.setBackground(ColorSupplier.getWallColor());
+                                gameModel.setWall(x1, y1);
                             }
                             break;
                     }
@@ -96,8 +96,8 @@ public class GamePanel extends javax.swing.JPanel {
     public List<Point> start() throws Exception {
         List<Point> path = gameModel.start();
         for (Point point : path) {
-            if (buttons[point.getY()][point.getX()].getBackground().equals(new Color(238, 238, 238))) {
-                buttons[point.getY()][point.getX()].setBackground(Color.PINK);
+            if (buttons[point.getY()][point.getX()].getBackground().equals(ColorSupplier.getDefaultColor())) {
+                buttons[point.getY()][point.getX()].setBackground(ColorSupplier.getPathColor());
             }
         }
         return path;
