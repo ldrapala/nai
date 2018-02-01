@@ -2,6 +2,7 @@ package luke.nai.project.astar;
 
 import java.util.PriorityQueue;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
@@ -22,25 +23,25 @@ public class AStarAlgorithm<T> {
         this.destination = destination;
     }
 
-    public Path execute() throws Exception {
-        Queue<Path<T>> forCalculating = new PriorityQueue<>(new PathComparator());
+    public Path<T> execute() throws Exception {
+        Queue<Path<T>> openList = new PriorityQueue<>(new PathComparator());
         Path intialPath = new Path(source, graph);
-        forCalculating.add(intialPath);
-        Set<Node<T>> visitedNodes = new HashSet<>();
-        while (!forCalculating.isEmpty()) {
-            Path<T> path = forCalculating.poll();
+        openList.add(intialPath);
+        Set<Node<T>> closedList = new HashSet<>();
+        while (!openList.isEmpty()) {
+            Path<T> path = openList.poll();
             if (path.isFinished(destination)) {
                 return path;
             }
-            visitedNodes.add(path.getLastNode());
+            closedList.add(path.getLastNode());
             for (Node<T> neighbour : graph.getNeighbours(path.getLastNode())) {
-                if (visitedNodes.contains(neighbour)) {
+                if (closedList.contains(neighbour)) {
                     continue;
                 }
                 Path newPath = new Path(path, graph);
                 newPath.addNode(neighbour);
-                if (!forCalculating.contains(newPath)) {
-                    forCalculating.add(newPath);
+                if (!openList.contains(newPath)) {
+                    openList.add(newPath);
                 }
             }
         }

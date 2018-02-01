@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 
 /**
@@ -49,7 +51,7 @@ public class GamePanel extends javax.swing.JPanel {
                         case CHOOSE_START:
                             if (jButton.getBackground().equals(Color.GREEN)) {
                                 jButton.setBackground(new Color(238, 238, 238));
-                                gameModel.clear(x, y);
+                                gameModel.clearStart();
                             } else {
                                 jButton.setBackground(Color.GREEN);
                                 gameModel.setStart(x, y);
@@ -58,7 +60,7 @@ public class GamePanel extends javax.swing.JPanel {
                         case CHOOSE_END:
                             if (jButton.getBackground().equals(Color.ORANGE)) {
                                 jButton.setBackground(new Color(238, 238, 238));
-                                gameModel.clear(x, y);
+                                gameModel.clearEnd();
                             } else {
                                 jButton.setBackground(Color.ORANGE);
                                 gameModel.setEnd(x, y);
@@ -67,7 +69,7 @@ public class GamePanel extends javax.swing.JPanel {
                         case CHOOSE_WALL:
                             if (jButton.getBackground().equals(Color.RED)) {
                                 jButton.setBackground(new Color(238, 238, 238));
-                                gameModel.clear(x, y);
+                                gameModel.clearWall(x, y);
                             } else {
                                 jButton.setBackground(Color.RED);
                                 gameModel.setWall(x, y);
@@ -79,7 +81,7 @@ public class GamePanel extends javax.swing.JPanel {
                 add(jButton, gbc);
 
             }
-            gameModel.setFieldsInRow(row);
+            gameModel.setRows(row);
         }
         revalidate();
         repaint();
@@ -90,7 +92,11 @@ public class GamePanel extends javax.swing.JPanel {
     }
 
     public void start() {
-        gameModel.start();
+        try {
+            gameModel.start();
+        } catch (Exception ex) {
+            Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

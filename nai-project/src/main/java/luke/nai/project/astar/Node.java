@@ -1,5 +1,6 @@
 package luke.nai.project.astar;
 
+import java.awt.Color;
 import java.util.Objects;
 
 /**
@@ -8,11 +9,11 @@ import java.util.Objects;
  * @param <T>
  */
 public class Node<T> {
-    
+
     private final T nodeId;
     private final double heuristicValue;
 
-    public Node (T nodeId, double heuristicValue) {
+    public Node(T nodeId, double heuristicValue) {
         this.nodeId = nodeId;
         this.heuristicValue = heuristicValue;
     }
@@ -49,5 +50,10 @@ public class Node<T> {
         }
         return true;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Node{" + "nodeId=" + nodeId + '}';
+    }
+
 }
