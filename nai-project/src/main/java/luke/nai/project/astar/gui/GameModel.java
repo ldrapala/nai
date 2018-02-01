@@ -54,19 +54,19 @@ public class GameModel {
             for (int j = 0; j < rows; j++) {
                 Point point = new Point(i, j);
                 if (hasUpperNeighbour(point)) {
-                    Point neighbour = new Point(i, j + 1);
+                    Point neighbour = new Point(i+1, j);
                     graph.addEdge(getEdge(point, neighbour));
                 }
                 if (hasBottomNeighbour(point)) {
-                    Point neighbour = new Point(i, j - 1);
+                    Point neighbour = new Point(i-1, j);
                     graph.addEdge(getEdge(point, neighbour));
                 }
                 if (hasLeftNeighbour(point)) {
-                    Point neighbour = new Point(i - 1, j);
+                    Point neighbour = new Point(i, j-1);
                     graph.addEdge(getEdge(point, neighbour));
                 }
                 if (hasRightNeighbour(point)) {
-                    Point neighbour = new Point(i + 1, j);
+                    Point neighbour = new Point(i, j+1);
                     graph.addEdge(getEdge(point, neighbour));
                 }
             }
