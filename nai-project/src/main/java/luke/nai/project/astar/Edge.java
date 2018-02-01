@@ -57,4 +57,9 @@ public class Edge<T> {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Edge{" + "nodes=" + nodes + '}';
+    }
+
 }

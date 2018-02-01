@@ -53,21 +53,31 @@ public class GameModel {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
                 Point point = new Point(i, j);
-                if (hasUpperNeighbour(point)) {
-                    Point neighbour = new Point(i+1, j);
-                    graph.addEdge(getEdge(point, neighbour));
-                }
-                if (hasBottomNeighbour(point)) {
-                    Point neighbour = new Point(i-1, j);
-                    graph.addEdge(getEdge(point, neighbour));
-                }
-                if (hasLeftNeighbour(point)) {
-                    Point neighbour = new Point(i, j-1);
-                    graph.addEdge(getEdge(point, neighbour));
-                }
-                if (hasRightNeighbour(point)) {
-                    Point neighbour = new Point(i, j+1);
-                    graph.addEdge(getEdge(point, neighbour));
+                if (isNotWall(point)) {
+                    if (hasUpperNeighbour(point)) {
+                        Point neighbour = new Point(i - 1, j);
+                        if (isNotWall(neighbour)) {
+                            graph.addEdge(getStraightEdge(point, neighbour));
+                        }
+                    }
+                    if (hasBottomNeighbour(point)) {
+                        Point neighbour = new Point(i + 1, j);
+                        if (isNotWall(neighbour)) {
+                            graph.addEdge(getStraightEdge(point, neighbour));
+                        }
+                    }
+                    if (hasLeftNeighbour(point)) {
+                        Point neighbour = new Point(i, j - 1);
+                        if (isNotWall(neighbour)) {
+                            graph.addEdge(getStraightEdge(point, neighbour));
+                        }
+                    }
+                    if (hasRightNeighbour(point)) {
+                        Point neighbour = new Point(i, j + 1);
+                        if (isNotWall(neighbour)) {
+                            graph.addEdge(getStraightEdge(point, neighbour));
+                        }
+                    }
                 }
             }
         }
@@ -80,18 +90,26 @@ public class GameModel {
         return result;
     }
 
-    private Edge<Point> getEdge(Point point1, Point point2) {
-        int heuristic = Math.abs(point1.getX() - end.getX()) + Math.abs(point1.getY() - end.getY());
-        int heuristic2 = Math.abs(point2.getX() - end.getX()) + Math.abs(point2.getY() - end.getY());
-        return new Edge<>(new Node<>(point1, heuristic), new Node<>(point2, heuristic2), 1);
+    private boolean isNotWall(Point point) {
+        return !walls.contains(point);
+    }
+
+    private Edge<Point> getStraightEdge(Point point1, Point point2) {
+        return getEdge(point1, point2, 1);
+    }
+
+    private Edge<Point> getEdge(Point point1, Point point2, double cost) {
+        double heuristic = Math.abs(point1.getX() - end.getX()) + Math.abs(point1.getY() - end.getY());
+        double heuristic2 = Math.abs(point2.getX() - end.getX()) + Math.abs(point2.getY() - end.getY());
+        return new Edge<>(new Node<>(point1, heuristic), new Node<>(point2, heuristic2), cost);
     }
 
     private boolean hasUpperNeighbour(Point point) {
-        return point.getY() + 1 < rows;
+        return point.getY() - 1 < rows && point.getY() - 1 >= 0;
     }
 
     private boolean hasBottomNeighbour(Point point) {
-        return point.getY() - 1 < rows && point.getY() - 1 >= 0;
+        return point.getY() + 1 < rows;
     }
 
     private boolean hasLeftNeighbour(Point point) {

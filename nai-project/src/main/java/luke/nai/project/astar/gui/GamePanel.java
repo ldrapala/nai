@@ -93,17 +93,14 @@ public class GamePanel extends javax.swing.JPanel {
         this.context = context;
     }
 
-    public void start() {
-        try {
-            List<Point> path = gameModel.start();
-            for (Point point : path) {
-                if (buttons[point.getY()][point.getX()].getBackground().equals(new Color(238, 238, 238))) {
-                    buttons[point.getY()][point.getX()].setBackground(Color.red);
-                }
+    public List<Point> start() throws Exception {
+        List<Point> path = gameModel.start();
+        for (Point point : path) {
+            if (buttons[point.getY()][point.getX()].getBackground().equals(new Color(238, 238, 238))) {
+                buttons[point.getY()][point.getX()].setBackground(Color.PINK);
             }
-        } catch (Exception ex) {
-            Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return path;
     }
 
     /**

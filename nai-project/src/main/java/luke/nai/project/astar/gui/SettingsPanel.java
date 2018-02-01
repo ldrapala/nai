@@ -1,6 +1,9 @@
 package luke.nai.project.astar.gui;
 
 import java.awt.Color;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 
@@ -21,6 +24,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         group.add(jRadioButton1);
         group.add(jRadioButton2);
         group.add(jRadioButton3);
+        jLabel3.setText("");
     }
 
     /**
@@ -39,6 +43,8 @@ public class SettingsPanel extends javax.swing.JPanel {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -69,8 +75,8 @@ public class SettingsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
         add(jButton1, gridBagConstraints);
 
         jRadioButton1.setText("Select start");
@@ -80,8 +86,8 @@ public class SettingsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         add(jRadioButton1, gridBagConstraints);
 
@@ -92,8 +98,8 @@ public class SettingsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         add(jRadioButton2, gridBagConstraints);
 
@@ -104,17 +110,31 @@ public class SettingsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         add(jRadioButton3, gridBagConstraints);
+
+        jLabel2.setText("jLabel2");
+        add(jLabel2, new java.awt.GridBagConstraints());
+
+        jLabel3.setText("jLabel3");
+        add(jLabel3, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        gamePanel.start();
+        try {
+            List<Point> start = gamePanel.start();
+            if(start.isEmpty()){
+                jLabel3.setText("No path.");
+            }
+        } catch (Exception ex) {
+            jLabel3.setText("Invalid settings.");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        jLabel3.setText("");
         String selectedItem = jComboBox1.getSelectedItem().toString();
         int fieldsInRow = Integer.parseInt(selectedItem);
         gamePanel.setFieldsInRow(fieldsInRow);
@@ -143,6 +163,8 @@ public class SettingsPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
