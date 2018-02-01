@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ public class GamePanel extends javax.swing.JPanel {
 
     private Context context;
     private GameModel gameModel;
+    private JButton[][] buttons;
 
     /**
      * Creates new form GamePanel
@@ -27,7 +29,7 @@ public class GamePanel extends javax.swing.JPanel {
 
     public void setFieldsInRow(int row) {
         removeAll();
-        JButton[][] buttons = new JButton[row][row];
+        buttons = new JButton[row][row];
         GridBagConstraints gbc = new GridBagConstraints();
         int buttonHeight = getParent().getHeight() / buttons.length + 1;
         int buttonWidht = getParent().getWidth() / buttons.length + 1;
@@ -93,7 +95,10 @@ public class GamePanel extends javax.swing.JPanel {
 
     public void start() {
         try {
-            gameModel.start();
+            List<Point> path = gameModel.start();
+            for (Point point : path) {
+                buttons[point.getY()][point.getX()].setBackground(Color.red);
+            }
         } catch (Exception ex) {
             Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
         }

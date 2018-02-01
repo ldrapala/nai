@@ -2,6 +2,7 @@ package luke.nai.project.astar.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import luke.nai.project.astar.AStarAlgorithm;
 import luke.nai.project.astar.Edge;
 import luke.nai.project.astar.Graph;
@@ -47,7 +48,7 @@ public class GameModel {
         walls.remove(new Point(x, y));
     }
 
-    public void start() throws Exception {
+    public List<Point> start() throws Exception {
         Graph<Point> graph = new Graph<>();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
@@ -75,7 +76,8 @@ public class GameModel {
         AStarAlgorithm<Point> aStarAlgorithm = new AStarAlgorithm<>(graph, startNode, endNode);
         Path<Point> path = aStarAlgorithm.execute();
         List<Node<Point>> nodes = path.getNodes();
-        System.out.println(nodes);
+        List<Point> result = nodes.stream().map(Node::getNodeId).collect(Collectors.toList());
+        return result;
     }
 
     private Edge<Point> getEdge(Point point1, Point point2) {
