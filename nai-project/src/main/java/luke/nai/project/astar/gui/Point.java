@@ -9,9 +9,9 @@ public class Point {
     private final int x;
     private final int y;
 
-    public Point(int y, int x) {
-        this.y = y;
+    public Point(int x, int y) {
         this.x = x;
+        this.y = y;
     }
 
     public int getX() {

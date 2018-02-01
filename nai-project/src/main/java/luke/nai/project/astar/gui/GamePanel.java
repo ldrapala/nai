@@ -46,8 +46,8 @@ public class GamePanel extends javax.swing.JPanel {
                 jButton.setMargin(new Insets(1, 1, 1, 1));
                 jButton.setBackground(ColorSupplier.getDefaultColor());
                 jButton.setText(String.valueOf(++counter));
-                final int x1 = y;
-                final int y1 = x;
+                final int y1 = y;
+                final int x1 = x;
                 jButton.addActionListener((ActionEvent e) -> {
                     switch (context) {
                         case CHOOSE_START:

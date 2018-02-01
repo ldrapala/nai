@@ -50,30 +50,30 @@ public class GameModel {
 
     public List<Point> start() throws Exception {
         Graph<Point> graph = new Graph<>();
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < rows; j++) {
-                Point point = new Point(i, j);
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < rows; x++) {
+                Point point = new Point(x, y);
                 if (isNotWall(point)) {
                     if (hasUpperNeighbour(point)) {
-                        Point neighbour = new Point(i - 1, j);
+                        Point neighbour = new Point(x, y - 1);
                         if (isNotWall(neighbour)) {
                             graph.addEdge(getStraightEdge(point, neighbour));
                         }
                     }
                     if (hasBottomNeighbour(point)) {
-                        Point neighbour = new Point(i + 1, j);
+                        Point neighbour = new Point(x, y + 1);
                         if (isNotWall(neighbour)) {
                             graph.addEdge(getStraightEdge(point, neighbour));
                         }
                     }
                     if (hasLeftNeighbour(point)) {
-                        Point neighbour = new Point(i, j - 1);
+                        Point neighbour = new Point(x - 1, y);
                         if (isNotWall(neighbour)) {
                             graph.addEdge(getStraightEdge(point, neighbour));
                         }
                     }
                     if (hasRightNeighbour(point)) {
-                        Point neighbour = new Point(i, j + 1);
+                        Point neighbour = new Point(x + 1, y);
                         if (isNotWall(neighbour)) {
                             graph.addEdge(getStraightEdge(point, neighbour));
                         }
@@ -81,7 +81,7 @@ public class GameModel {
                 }
             }
         }
-        Node<Point> startNode = new Node<>(start, 0);
+        Node<Point> startNode = new Node<>(start, getHeuristic(start));
         Node<Point> endNode = new Node<>(end, 0);
         AStarAlgorithm<Point> aStarAlgorithm = new AStarAlgorithm<>(graph, startNode, endNode);
         Path<Point> path = aStarAlgorithm.execute();
@@ -99,13 +99,18 @@ public class GameModel {
     }
 
     private Edge<Point> getEdge(Point point1, Point point2, double cost) {
-        double heuristic = Math.abs(point1.getX() - end.getX()) + Math.abs(point1.getY() - end.getY());
-        double heuristic2 = Math.abs(point2.getX() - end.getX()) + Math.abs(point2.getY() - end.getY());
+        double heuristic = getHeuristic(point1);
+        double heuristic2 = getHeuristic(point2);
         return new Edge<>(new Node<>(point1, heuristic), new Node<>(point2, heuristic2), cost);
     }
 
+    private double getHeuristic(Point point) {
+        double heuristic = Math.abs(point.getX() - end.getX()) + Math.abs(point.getY() - end.getY());
+        return heuristic;
+    }
+
     private boolean hasUpperNeighbour(Point point) {
-        return point.getY() - 1 < rows && point.getY() - 1 >= 0;
+        return point.getY() - 1 >= 0;
     }
 
     private boolean hasBottomNeighbour(Point point) {
@@ -113,7 +118,7 @@ public class GameModel {
     }
 
     private boolean hasLeftNeighbour(Point point) {
-        return point.getX() - 1 < rows && point.getX() - 1 >= 0;
+        return point.getX() - 1 >= 0;
     }
 
     private boolean hasRightNeighbour(Point point) {
