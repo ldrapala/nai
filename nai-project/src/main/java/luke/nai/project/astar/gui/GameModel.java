@@ -22,6 +22,9 @@ public class GameModel {
 
     public void setRows(int rows) {
         this.rows = rows;
+        this.start = null;
+        this.end = null;
+        this.walls.clear();
     }
 
     public void setStart(int x, int y) {
