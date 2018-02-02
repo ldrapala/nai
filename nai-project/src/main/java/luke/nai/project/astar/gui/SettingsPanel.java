@@ -132,6 +132,8 @@ public class SettingsPanel extends javax.swing.JPanel {
         String selectedItem = jComboBox1.getSelectedItem().toString();
         int fieldsInRow = Integer.parseInt(selectedItem);
         gamePanel.setFieldsInRow(fieldsInRow);
+        jRadioButton1.setSelected(true);
+        gamePanel.setContext(Context.CHOOSE_START);
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
@@ -149,8 +151,8 @@ public class SettingsPanel extends javax.swing.JPanel {
     public void setGamePanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         jComboBox1.setSelectedIndex(0);
-        jRadioButton3.setSelected(true);
-        gamePanel.setContext(Context.CHOOSE_WALL);
+        jRadioButton1.setSelected(true);
+        gamePanel.setContext(Context.CHOOSE_START);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
