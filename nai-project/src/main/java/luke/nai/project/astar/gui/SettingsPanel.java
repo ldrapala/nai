@@ -1,9 +1,6 @@
 package luke.nai.project.astar.gui;
 
 import java.awt.Color;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 
@@ -124,10 +121,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            List<Point> start = gamePanel.start();
-            if(start.isEmpty()){
-                jLabel3.setText("No path.");
-            }
+            gamePanel.start();
         } catch (Exception ex) {
             jLabel3.setText("Invalid settings.");
         }
