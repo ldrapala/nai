@@ -40,9 +40,9 @@ public class AStarAlgorithm<T> {
                 }
                 Path newPath = new Path(path, graph);
                 newPath.addNode(neighbour);
-                if (!openList.contains(newPath)) {
-                    openList.add(newPath);
-                }
+                    if (!openList.contains(newPath)) {
+                        openList.add(newPath);
+                    }
             }
         }
         throw new Exception("Can't find a path.");
