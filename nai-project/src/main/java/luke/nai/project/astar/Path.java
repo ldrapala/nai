@@ -72,6 +72,9 @@ public class Path<T> {
     public double getG() {
         return g;
     }
+    public double getHFromLastNode() {
+        return nodes.getLast().getHeuristicValue();
+    }
 
     @Override
     public int hashCode() {
