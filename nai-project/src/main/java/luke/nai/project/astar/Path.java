@@ -15,6 +15,11 @@ public class Path<T> {
     private double f;
     private double g;
 
+    public Path() {
+        this.nodes = new LinkedList<>();
+        this.graph = null;
+    }
+
     public Path(Node<T> initialNode, Graph<T> graph) {
         this.nodes = new LinkedList<>();
         this.nodes.add(initialNode);
@@ -54,7 +59,8 @@ public class Path<T> {
     }
     
     public boolean isFinished(Node<T> node) {
-        return nodes.getLast().equals(node);
+        boolean result = nodes.getLast().equals(node);
+        return result;
     }
     
     public Node<T> getLastNode(){

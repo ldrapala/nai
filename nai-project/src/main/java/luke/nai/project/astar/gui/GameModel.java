@@ -2,6 +2,11 @@ package luke.nai.project.astar.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import luke.nai.project.astar.AStarAlgorithm;
 import luke.nai.project.astar.Edge;
@@ -84,11 +89,17 @@ public class GameModel {
                 }
             }
         }
-        Node<Point> startNode = new Node<>(start, getHeuristic(start));
-        Node<Point> endNode = new Node<>(end, 0);
-        AStarAlgorithm<Point> aStarAlgorithm = new AStarAlgorithm<>(graph, startNode, endNode);
-        Path<Point> path = aStarAlgorithm.execute();
-        List<Node<Point>> nodes = path.getNodes();
+        AStarAlgorithm<Point> aStarAlgorithm = new AStarAlgorithm<>
+        (graph, new Node<>(start, getHeuristic(start)), new Node<>(end, 0));
+        AStarAlgorithm<Point> aStarAlgorithm2 = new AStarAlgorithm<>
+        (graph, new Node<>(end, getHeuristic(start)), new Node<>(start, 0));
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        List<Callable<Path<Point>>> results = new ArrayList<>();
+        results.add(aStarAlgorithm::execute);
+        results.add(aStarAlgorithm2::execute);
+        Path<Point> firstResult = executor.invokeAny(results);
+        executor.shutdown();
+        List<Node<Point>> nodes = firstResult.getNodes();
         List<Point> result = nodes.stream().map(Node::getNodeId).collect(Collectors.toList());
         return result;
     }

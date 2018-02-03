@@ -1,5 +1,6 @@
 package luke.nai.project.astar;
 
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +24,7 @@ public class AStarAlgorithm<T> {
         this.destination = destination;
     }
 
-    public Path<T> execute() throws Exception {
+    public Path<T> execute() {
         Queue<Path<T>> openList = new PriorityQueue<>(new PathComparator());
         Path intialPath = new Path(source, graph);
         openList.add(intialPath);
@@ -45,7 +46,7 @@ public class AStarAlgorithm<T> {
                     }
             }
         }
-        throw new Exception("Can't find a path.");
+        return new Path<>();
     }
 
 }
