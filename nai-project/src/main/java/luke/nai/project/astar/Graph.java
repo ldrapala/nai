@@ -40,7 +40,7 @@ public class Graph<T> {
 
     public Set<Node<T>> getNeighbours(Node<T> node) {
         Set<Node<T>> result = new HashSet<>();
-        for (Edge<T> edge : graph.get(node)) {
+        for (Edge<T> edge : graph.getOrDefault(node, new HashSet<>())) {
             List<Node<T>> nodes = edge.getNodes();
             result.addAll(nodes);
         }
