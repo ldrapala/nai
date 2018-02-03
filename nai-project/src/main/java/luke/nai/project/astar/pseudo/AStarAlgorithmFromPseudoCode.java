@@ -1,8 +1,10 @@
 package luke.nai.project.astar.pseudo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
@@ -26,19 +28,14 @@ public class AStarAlgorithmFromPseudoCode {
                 (Node2<Point> o1, Node2<Point> o2) -> Double.compare(o1.getF(), o2.getF()));
         start.setG(0);
         openList.add(start);
-        System.out.println("START: " + start);
-        System.out.println("END: " + end);
         while (!openList.isEmpty()) {
             Node2<Point> x = openList.poll();
-            System.out.println("X: "+x);
             if (x.equals(end)) {
                 List<Node2<Point>> reconstructPath = reconstructPath(x);
-                System.out.println("END: "+reconstructPath);
                 return reconstructPath;
             }
             closedList.add(x);
             for (Node2<Point> y : graph.getNeighbours(x)) {
-                System.out.println("Y: "+y);
                 if (closedList.contains(y)) {
                     continue;
                 }
@@ -59,7 +56,6 @@ public class AStarAlgorithmFromPseudoCode {
                 }
             }
         }
-        System.out.println("NULL");
         return null;
     }
 
